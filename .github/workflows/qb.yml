@@ -12,6 +12,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: ip
+        run: curl -s --max-time 8 https://api.ipify.org || true
       - name: run
         run: python3 qb.py "${{ inputs.queries }}"
       - uses: actions/upload-artifact@v4
