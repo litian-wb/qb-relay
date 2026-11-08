@@ -1,0 +1,22 @@
+name: qb
+on:
+  workflow_dispatch:
+    inputs:
+      queries:
+        description: 'type=value;type=value'
+        required: true
+        default: 'qq_tel=10001'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: run
+        run: python3 qb.py "${{ inputs.queries }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: result
+          path: result.json
+          retention-days: 1
